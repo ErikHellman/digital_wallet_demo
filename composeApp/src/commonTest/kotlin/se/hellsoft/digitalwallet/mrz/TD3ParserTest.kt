@@ -19,14 +19,14 @@ class TD3ParserTest {
         val result = parser.parse(validMrzLine1, validMrzLine2)
 
         assertTrue(result.isValid)
-        assertEquals("P", result.documentType)
+        assertEquals('P', result.documentType)
         assertEquals("UTO", result.issuingCountry)
         assertEquals("ERIKSSON", result.familyName)
         assertEquals("ANNA MARIA", result.givenNames)
         assertEquals("L898902C3", result.documentNumber)
         assertEquals("UTO", result.nationality)
         assertEquals(LocalDate(1974, 8, 12), result.dateOfBirth)
-        assertEquals("F", result.sex)
+        assertEquals('F', result.sex)
         assertEquals(LocalDate(2012, 4, 15), result.expirationDate)
         assertEquals("ZE184226B", result.personalNumber)
     }
@@ -34,7 +34,7 @@ class TD3ParserTest {
     @Test
     fun `parse TD3 MRZ with no given names`() {
         val parser = TD3Parser()
-        val line1 = "P<UTOERIKSSON<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+        val line1 = "P<UTOERIKSSON<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
         val line2 = "L898902C36UTO7408122F1204159ZE184226B<<<<<10"
 
         val result = parser.parse(line1, line2)
@@ -46,7 +46,7 @@ class TD3ParserTest {
     @Test
     fun `parse TD3 MRZ with multiple given names`() {
         val parser = TD3Parser()
-        val line1 = "P<UTOERIKSSON<<ANNA<MARIA<LOUISE<<<<<<<<<<<<<<"
+        val line1 = "P<UTOERIKSSON<<ANNA<MARIA<LOUISE<<<<<<<<<<<<"
         val line2 = "L898902C36UTO7408122F1204159ZE184226B<<<<<10"
 
         val result = parser.parse(line1, line2)
@@ -83,7 +83,7 @@ class TD3ParserTest {
 
         val result = parser.parse(validMrzLine1, line2Male)
 
-        assertEquals("M", result.sex)
+        assertEquals('M', result.sex)
     }
 
     @Test
@@ -93,7 +93,7 @@ class TD3ParserTest {
 
         val result = parser.parse(validMrzLine1, line2Unspecified)
 
-        assertEquals("<", result.sex)
+        assertEquals('<', result.sex)
     }
 
     @Test

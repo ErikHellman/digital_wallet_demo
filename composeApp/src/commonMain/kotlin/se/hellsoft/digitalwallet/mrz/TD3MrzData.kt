@@ -21,14 +21,14 @@ import kotlinx.datetime.LocalDate
  * @property rawMrzLine2 The second line of the raw MRZ data
  */
 data class TD3MrzData(
-    val documentType: String,
+    val documentType: Char,
     val issuingCountry: String,
     val familyName: String,
     val givenNames: String,
     val documentNumber: String,
     val nationality: String,
     val dateOfBirth: LocalDate,
-    val sex: String,
+    val sex: Char,
     val expirationDate: LocalDate,
     val personalNumber: String,
     val isValid: Boolean,

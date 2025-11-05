@@ -41,12 +41,12 @@ class TD3Parser {
         }
 
         // Parse Line 1
-        val documentType = line1.substring(0, 1)
+        val documentType = line1[0]
         val issuingCountry = line1.substring(2, 5)
         val (familyName, givenNames) = parseName(line1.substring(5, 44))
 
         // Parse Line 2
-        val documentNumber = line2.substring(0, 9).trimFillers()
+        val documentNumber = line2.take(9).trimFillers()
         val documentNumberCheck = line2[9]
 
         val nationality = line2.substring(10, 13)
@@ -54,7 +54,7 @@ class TD3Parser {
         val dateOfBirthStr = line2.substring(13, 19)
         val dateOfBirthCheck = line2[19]
 
-        val sex = line2.substring(20, 21)
+        val sex = line2[20]
 
         val expirationDateStr = line2.substring(21, 27)
         val expirationDateCheck = line2[27]
@@ -65,13 +65,13 @@ class TD3Parser {
         val compositeCheck = line2[43]
 
         // Validate check digits
-        val isDocumentNumberValid = checkDigitCalculator.validate(line2.substring(0, 9), documentNumberCheck)
+        val isDocumentNumberValid = checkDigitCalculator.validate(line2.take(9), documentNumberCheck)
         val isDateOfBirthValid = checkDigitCalculator.validate(dateOfBirthStr, dateOfBirthCheck)
         val isExpirationDateValid = checkDigitCalculator.validate(expirationDateStr, expirationDateCheck)
         val isPersonalNumberValid = checkDigitCalculator.validate(line2.substring(28, 42), personalNumberCheck)
 
         // Composite check digit validates: document number + check + nationality + DOB + check + sex + expiry + check + personal number + check
-        val compositeData = line2.substring(0, 10) + line2.substring(13, 20) + line2.substring(21, 43)
+        val compositeData = line2.take(10) + line2.substring(13, 20) + line2.substring(21, 43)
         val isCompositeValid = checkDigitCalculator.validate(compositeData, compositeCheck)
 
         val isValid = isDocumentNumberValid && isDateOfBirthValid && isExpirationDateValid &&
@@ -130,7 +130,7 @@ class TD3Parser {
      * @return LocalDate
      */
     private fun parseDate(dateStr: String): LocalDate {
-        val year = dateStr.substring(0, 2).toInt()
+        val year = dateStr.take(2).toInt()
         val month = dateStr.substring(2, 4).toInt()
         val day = dateStr.substring(4, 6).toInt()
 
