@@ -41,7 +41,10 @@ kotlin {
             implementation(libs.androidx.registry.provider.play.services)
 
             implementation(libs.nfc.passport.reader)
-            implementation(libs.blinkid.ux)
+
+            implementation(libs.accompanist.permissions)
+
+
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -58,6 +61,9 @@ kotlin {
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.kermit)
+
+            implementation(libs.camerak)
+            implementation(libs.camerak.ocr)
 
         }
         commonTest.dependencies {

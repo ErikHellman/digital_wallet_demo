@@ -21,6 +21,9 @@ nfc-passport-reader = "3.0.4"
 blinkid-ux = "7.6.0"
 kotlinx-datetime = "0.7.1"
 kermit = "2.0.4"
+camerak = "0.0.12"
+camerak-ocr = "0.0.3"
+accompanist-permissions = "0.37.3"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -40,8 +43,8 @@ androidx-registry-digitalcredentials-sdjwt = { module = "androidx.credentials.re
 androidx-registry-digitalcredentials-openid = { module = "androidx.credentials.registry:registry-digitalcredentials-openid", version.ref = "registryDigitalcredentialsMdoc" }
 androidx-registry-provider = { module = "androidx.credentials.registry:registry-provider", version.ref = "registryDigitalcredentialsMdoc" }
 androidx-registry-provider-play-services = { module = "androidx.credentials.registry:registry-provider-play-services", version.ref = "registryDigitalcredentialsMdoc" }
-play-services-identity-credentials = { module = "com.google.android.gms:play-services-identity-credentials", version = "19.5.0" }
-play-services-mlkit-text-recognition = { module = "com.google.android.gms:play-services-mlkit-text-recognition", version = "19.5.0" }
+play-services-identity-credentials = { module = "com.google.android.gms:play-services-identity-credentials", version = "16.0.0-alpha08" }
+play-services-mlkit-text-recognition = { module = "com.google.android.gms:play-services-mlkit-text-recognition", version = "19.0.1" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktorClient" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorClient" }
@@ -51,6 +54,9 @@ nfc-passport-reader = { module = "com.appliedrec:mrtd-reader", version.ref = "nf
 blinkid-ux = { module = "com.microblink:blinkid-ux", version.ref = "blinkid-ux" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
+camerak = { module = "io.github.kashif-mehmood-km:camerak", version.ref = "camerak" }
+camerak-ocr = { module = "io.github.kashif-mehmood-km:ocr_plugin", version.ref = "camerak-ocr" }
+accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist-permissions" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

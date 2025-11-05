@@ -7,6 +7,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import co.touchlab.kermit.Logger
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -16,16 +17,8 @@ fun App() {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
         ) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Bottom,
-            ) {
-                Box(
-                    modifier = Modifier.fillMaxWidth().aspectRatio(1f),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    Text("Scanning of passport happens here...")
-                }
+            PassportIdScanner(modifier = Modifier.fillMaxSize()) {
+                Logger.d { "PassportIdScanner: $it" }
             }
         }
     }
