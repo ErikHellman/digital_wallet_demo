@@ -17,7 +17,8 @@ import com.kashif.cameraK.ui.CameraPreview
 import com.kashif.ocrPlugin.rememberOcrPlugin
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
-import se.hellsoft.digitalwallet.digital_wallet.data.PassportInfo
+import se.hellsoft.digitalwallet.mrz.TD3MrzData
+import se.hellsoft.digitalwallet.mrz.TD3Parser
 
 private val TD3_LINE1_REGEXP = Regex("^(P)<([A-Z]{3})([A-Z<]{39})$")
 private val TD3_LINE2_REGEXP =
@@ -31,7 +32,7 @@ expect fun CameraPermissions(modifier: Modifier = Modifier, onPermissionsGranted
 @Composable expect fun isCameraPermissionGranted(): MutableState<Boolean>
 
 @Composable
-fun PassportIdScanner(modifier: Modifier = Modifier, onPassportIdScanned: (PassportInfo) -> Unit) {
+fun PassportIdScanner(modifier: Modifier = Modifier, onPassportIdScanned: (TD3MrzData) -> Unit) {
     val permissionsGranted by isCameraPermissionGranted()
 
     if (!permissionsGranted) {
@@ -45,18 +46,22 @@ fun PassportIdScanner(modifier: Modifier = Modifier, onPassportIdScanned: (Passp
         LaunchedEffect(line1) {
             val data = line1
             if (data != null) {
-                TD3_LINE1_REGEXP.findAll(data).onEach {
-                    Logger.d { "${it.range} : ${it.value}" }
-                }
+                TD3_LINE1_REGEXP.findAll(data).onEach { Logger.d { "${it.range} : ${it.value}" } }
             }
         }
 
         LaunchedEffect(line2) {
             val data = line2
             if (data != null) {
-                TD3_LINE2_REGEXP.findAll(data).onEach {
-                    Logger.d { "${it.range} : ${it.value}" }
-                }
+                TD3_LINE2_REGEXP.findAll(data).onEach { Logger.d { "${it.range} : ${it.value}" } }
+            }
+        }
+
+        LaunchedEffect(line1, line2) {
+            if (line1 != null && line2 != null) {
+                val parser = TD3Parser()
+                val mrzData = parser.parse(line1!!, line2!!)
+                onPassportIdScanned(mrzData)
             }
         }
 
@@ -66,10 +71,11 @@ fun PassportIdScanner(modifier: Modifier = Modifier, onPassportIdScanned: (Passp
                 data
                     .split("\n")
                     .filter { line -> line.contains("<") }
-                    .map { line -> line.replace(Regex("\\s+"), "").replace("«", "<<").trim() }
-                    .filter { line -> line.length == 44 }
+                    .map { line -> line.replace(Regex("\\s+"), "") }
+                    .map { line -> line.replace("«", "<<") }
+//                    .filter { line -> line.length == 44 }
                     .forEach { line ->
-                        Logger.d { line }
+                        Logger.d { "Checking line: $line" }
                         if (line.matches(TD3_LINE1_REGEXP)) {
                             Logger.d { "TD3_LINE1_REGEXP matches $line1" }
                             line1 = line

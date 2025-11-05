@@ -32,8 +32,8 @@ data class TD3MrzData(
     val expirationDate: LocalDate,
     val personalNumber: String,
     val isValid: Boolean,
-    val rawMrzLine1: String,
-    val rawMrzLine2: String
+    private val rawMrzLine1: String,
+    private val rawMrzLine2: String
 ) {
     /**
      * Returns the MRZ as a single concatenated string (88 characters)
